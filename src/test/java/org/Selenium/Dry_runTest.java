@@ -8,5 +8,6 @@ public class Dry_runTest {
     public void Demotest(){
         System.out.println("Checking setup");
         Assert.assertEquals("Sonu","Sonu");
+        System.out.println("End the test");
     }
 }
