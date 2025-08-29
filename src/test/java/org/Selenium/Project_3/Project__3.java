@@ -1,5 +1,6 @@
-package org.Selenium.Project_1.Project_3;
+package org.Selenium.Project_3;
 
+import org.Selenium.Utils.commanToAll;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,14 +8,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Project__3 {
+public class Project__3 extends commanToAll {
 
     @Test
     public void createAccount(){
         WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://app.vwo.com");
-
+       open_Browser(driver,"https://app.vwo.com");
         WebElement strtTrial_Click =  driver.findElement(By.linkText("Start a free trial"));
         strtTrial_Click.click();
 
@@ -35,6 +34,8 @@ public class Project__3 {
 
         //Assertion
         Assert.assertEquals(message.getText(),"The email address you entered is incorrect.");
+
+        Close_Browser(driver);
 
     }
 
