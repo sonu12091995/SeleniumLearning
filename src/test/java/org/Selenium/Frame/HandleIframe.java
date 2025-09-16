@@ -21,11 +21,12 @@ public class HandleIframe extends commanToAll {
     public void IframeHandle() {
 
 
-
         WebDriver driver = new ChromeDriver();
-        open_Browser(driver,"https://app.vwo.com/#/analyze/heatmap/3/reports?token=eyJhY2NvdW50X2lkIjoxMTM0NTkxLCJleHBlcmltZW50X2lkIjozLCJjcmVhdGVkX29uIjoxNzU2MDA4MDkyLCJ0eXBlIjoiY2FtcGFpZ24iLCJ2ZXJzaW9uIjoxLCJoYXNoIjoiZTlmNmY0ZGZlMGJhMGIxNmQxMjZmMGJlOTUyMDQ3MmEiLCJzY29wZSI6IiIsImZybiI6ZmFsc2V9&accountId=1134591");
+        open_Browser(driver, "https://app.vwo.com/#/analyze/heatmap/3/reports?token=eyJhY2NvdW50X2lkIjoxMTM0NTkxLCJleHBlcmltZW50X2lkIjozLCJjcmVhdGVkX29uIjoxNzU2MDA4MDkyLCJ0eXBlIjoiY2FtcGFpZ24iLCJ2ZXJzaW9uIjoxLCJoYXNoIjoiZTlmNmY0ZGZlMGJhMGIxNmQxMjZmMGJlOTUyMDQ3MmEiLCJzY29wZSI6IiIsImZybiI6ZmFsc2V9&accountId=1134591");
         Waits.waitJVM(1000);
         // Vwo shared URl
+
+        String parentWindowHandle = driver.getWindowHandle();
 
         WebElement EmaiInpput = driver.findElement(By.xpath("//input[@name=\"primaryUrl\"]"));
         EmaiInpput.clear();
@@ -37,34 +38,23 @@ public class HandleIframe extends commanToAll {
         driver.manage().window().maximize();
 
         // Window handle
-        Set<String> windows = driver.getWindowHandles();
+        Set<String> Handles = driver.getWindowHandles();
 
-        // change set string into ArrayList
-        List<String> window = new ArrayList<>(windows);
 
-        String parent = window.get(0);
-        String child = window.get(1);
+        for (String handle : Handles) {
+            if(!handle.equals(parentWindowHandle)){
 
-        // switched to the child
-        driver.switchTo().window(child);
-        System.out.println(driver.getTitle());
-        driver.switchTo().window(child);// Switched the child window
+                driver.switchTo().window(handle);
+                driver.switchTo().frame("heatmap-iframe");
+                 Waits.waitJVM(1000);
+                // System.out.println(driver.getPageSource());
 
-        // switched to iframe
-        driver.switchTo().frame(0);
-        Waits.waitJVM(1000);
-
-        WebElement navigate_button = driver.findElement(By.xpath("//span[text()=\"Compare\"]"));
-
-        Actions action = new Actions(driver);
-        action.moveToElement(navigate_button).click();
+                WebElement navigate_button = driver.findElement(By.xpath("//span[text()=\"Compare\"]"));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(navigate_button).click().build().perform();
 
 
 
-        Close_Browser(driver);
-
-
-
-
-    }
-}
+            }
+        }
+    }}
