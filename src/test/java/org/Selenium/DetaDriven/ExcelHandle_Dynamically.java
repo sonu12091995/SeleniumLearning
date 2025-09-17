@@ -14,14 +14,21 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class ExcelHandle_Dynamically extends commanToAll {
+public class ExcelHandle_Dynamically  {
+
+
+    @DataProvider
+    public Object[][] getData(){
+        // READ THE DATA FROM THE EXCEL FILE
+        // GIVE THEM IN THE 2D ARRAY
+        return ExcelUtil.getTestDataFromExcel("sheet1");
+
+    }
+
+
+
     @Test(dataProvider = "getData")
     public void test_vwo_login(String email, String password) {
-
-//        // 1) Simple split (escape pipe)
-//        String[] parts1 = password.split("\\|");
-//        System.out.println("parts1[0] = '" + parts1[0] + "'");
-//        System.out.println("parts1[1] = '" + parts1[1] + "'");
 
         WebDriver driver = new ChromeDriver();
         driver.navigate().to("https://app.vwo.com");
@@ -57,12 +64,4 @@ public class ExcelHandle_Dynamically extends commanToAll {
 
 
 
-
-    @DataProvider
-    public Object[][] getData(){
-        // READ THE DATA FROM THE EXCEL FILE
-        // GIVE THEM IN THE 2D ARRAY
-        return ExcelUtil.getTestDataFromExcel("sheet1");
-
-    }
 }

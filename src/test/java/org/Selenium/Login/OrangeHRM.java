@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 public class OrangeHRM extends commanToAll {
 
-    @Owner("Pramod")
+    @Owner("sonu")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify login is working")
     @Test
